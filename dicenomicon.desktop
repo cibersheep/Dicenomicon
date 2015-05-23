@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Dicenomicon
+Exec=qmlscene $@ Main.qml
+Icon=dicenomicon.png
+Terminal=false
+Type=Application
+X-Ubuntu-Touch=true
+X-Ubuntu-Splash-Image=splash.png
+X-Ubuntu-Splash-Color=#1f1f1f
