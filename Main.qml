@@ -1,13 +1,10 @@
-import QtQuick 2.0
-import Ubuntu.Components 1.1
+import QtQuick 2.4
+import Ubuntu.Components 1.2
 import U1db 1.0 as U1db
 import "components"
 import Ubuntu.Components.Popups 0.1
 import "backend/scripts.js" as Cthulhu
 import QtSensors 5.0
-/*!
-    \brief MainView with a Label and Button elements.
-*/
 
 MainView {
     // objectName for functional testing purposes (autopilot-qt5)
@@ -15,7 +12,6 @@ MainView {
 
     // Note! applicationName needs to match the "name" field of the click manifest
     applicationName: "dicenomicon.kevinfeyder"
-    useDeprecatedToolbar: false
     backgroundColor: "#1f1f1f"
     width: units.gu(45)
     height: units.gu(75)
@@ -26,23 +22,23 @@ MainView {
         path: "dicenomicon.u1db"
     }
     U1db.Document {
-      id: dice
-      //stores todays expenes
-      database: dicenomicon
-      docId: "dice"
-      create: true
-      defaults: {"type":[]}
+        id: dice
+        //stores todays expenes
+        database: dicenomicon
+        docId: "dice"
+        create: true
+        defaults: {"type":[]}
     }
 
     SensorGesture{
-            id:shake
-            enabled: dice.contents.type.length === 0 ? false : true;
-            gestures : ["QtSensors.shake", "QtSensors.twist"]
-            onDetected: {
-                add.roll();
-                jumbo.visible = true;
-            }
+        id:shake
+        enabled: dice.contents.type.length === 0 ? false : true;
+        gestures : ["QtSensors.shake", "QtSensors.twist"]
+        onDetected: {
+            add.roll();
+            jumbo.visible = true;
         }
+    }
 
 
     Item{
@@ -53,11 +49,11 @@ MainView {
             add.total = 0;
         }
         function dismissRoll(index) {
-        var tempContents = {};
-        tempContents = dice.contents;
-        //var index = tempContents.players.indexOf(index);
-        tempContents.type.splice((index),1);
-        dice.contents = tempContents;
+            var tempContents = {};
+            tempContents = dice.contents;
+            //var index = tempContents.players.indexOf(index);
+            tempContents.type.splice((index),1);
+            dice.contents = tempContents;
         }
         function addRoll(playerObject) {
             var tempContents = {};
@@ -79,8 +75,6 @@ MainView {
             for(x = 0; x < dice.contents.type.length; x++){
                 add.replaceDice(x,{"sides":dice.contents.type[0].sides},{"sides":dice.contents.type[x].sides, "roll":Cthulhu.roll(dice.contents.type[x].sides)});
                 add.total = add.total + dice.contents.type[x].roll;
-                print("total " + add.total);
-                //add.totalRoll(dice.contents.type[x].side, add.total);
             }
         }
         function list(index){
@@ -91,16 +85,14 @@ MainView {
 
                 add.total = add.total + dice.contents.type[x].roll;
                 print("total " + add.total);
-                //add.totalRoll(dice.contents.type[x].side, add.total);
             }
         }
         function replaceDice(index,oldDice, newDice) {
             var tempContents = {};
             tempContents = dice.contents;
-            //var index = tempContents.players.indexOf(oldPlayer);
             tempContents.type.splice(index, 1, newDice);
             dice.contents = tempContents;
-            }
+        }
 
     }
     PageStack {
@@ -119,18 +111,18 @@ MainView {
         bottomEdgePageComponent:Page{
             head.actions:[
                 Action {
-                id:del
-                iconName: "delete"
-                onTriggered:{
-                    add.deleteRoll();
-                    add.total = 0;
-                    jumbo.visible = false;
+                    id:del
+                    iconName: "delete"
+                    onTriggered:{
+                        add.deleteRoll();
+                        add.total = 0;
+                        jumbo.visible = false;
                     }
                 },
                 Action {
-                id:save
-                iconName: "add"
-                onTriggered:{ PopupUtils.open(dialog) }
+                    id:save
+                    iconName: "add"
+                    onTriggered:{ PopupUtils.open(dialog) }
                 }
             ]
             id:details
@@ -203,7 +195,6 @@ MainView {
                     }
                 }
             }
-
         }
     }
 }
