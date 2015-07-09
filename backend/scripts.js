@@ -6,30 +6,36 @@ function roll(sides){
 
 //dice text name
 function diceName(unit){
-    if(unit === 4){
+    if(unit === 2){
+        return "Coin"
+    }else if(unit === 4){
     //week yellow
-    return "Tetrahedron"
+        return "Tetrahedron"
     } else if(unit === 6){
     //today blue
-    return "Cube"
+        return "Cube"
     } else if(unit === 8){
     //today blue
-    return "Octahedron"
+        return "Octahedron"
     }else if(unit === 10){
     //today blue
-    return "Deltahedron"
+        return "Deltahedron"
     }else if(unit === 12){
     //today blue
-    return "Dodecahedron"
-    }else {
+        return "Dodecahedron"
+    }else if(units === 20) {
     //month red
-    return "Icosahedron"
+        return "Icosahedron"
+    }else{
+        return "Hectogon"
     }
 }
 
 //dice text name
 function diceImage(unit){
-    if(unit === 4){
+    if(unit === 2){
+        return "d2"
+    }else if(unit === 4){
     //week yellow
     return "d4"
     } else if(unit === 6){
@@ -44,8 +50,10 @@ function diceImage(unit){
     }else if(unit === 12){
     //today blue
     return "d12"
-    }else {
+    }else if(unit === 20) {
     //month red
     return "d20"
+    } else{
+        return "d100"
     }
 }
