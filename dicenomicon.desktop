@@ -7,3 +7,4 @@ Type=Application
 X-Ubuntu-Touch=true
 X-Ubuntu-Splash-Image=splash.png
 X-Ubuntu-Splash-Color=#1f1f1f
+X-Ubuntu-Supported-Orientations=portrait

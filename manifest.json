@@ -9,7 +9,7 @@
             "desktop": "dicenomicon.desktop"
         }
     },
-    "version": "0.2.5",
+    "version": "0.3.5",
     "maintainer": "Kevin Feyder <kevinfeyder@gmail.com>",
-    "framework": "ubuntu-sdk-14.10"
+    "framework": "ubuntu-sdk-15.04"
 }
