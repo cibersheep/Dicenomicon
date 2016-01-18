@@ -260,56 +260,5 @@ MainView {
         }
     }//page
 
-
-    /*Page {
-        id:home
-        title: i18n.tr("Dicenomicon")
-        head.actions:[
-            Action {
-                id:save
-                iconName: "add"
-               onTriggered:{ PopupUtils.open(dialog) }
-            }
-
-        ]
-        AddComponent{
-        id:dialog
-        }
-        Column {
-            id:col
-            spacing:units.gu(5);
-            width:parent.width
-            height:parent.height
-            opacity:0
-            //start up animation
-            Component.onCompleted: {
-                col.opacity = 1;//begins start animation
-            }
-            Behavior on opacity{ NumberAnimation { easing.type:Easing.InOutBounce; duration: 2000} }
-            anchors {
-                margins: units.gu(2)
-                fill: parent
-            }
-            SetComponent{
-                id:jumbo
-                //big number in the center
-                Behavior on opacity { NumberAnimation { easing.type: Easing.OutBack; duration: 1000} }
-                visible: add.total != 0 ? true : false;
-                opacity: visible
-                height:units.gu(32)
-            }
-            EmptyComponent{
-                //cute cthulhu
-                height:units.gu(32)
-                Behavior on opacity { NumberAnimation { easing.type: Easing.OutBack; duration: 1000} }
-                visible: add.total === 0 ? true : false;
-                opacity: visible;
-            }
-            SettingsComponent {
-                width:parent.width
-                height: parent.height/2
-            }
-        }
-    }*/
 }
 

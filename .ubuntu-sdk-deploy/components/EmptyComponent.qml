@@ -22,7 +22,14 @@ Item{
             height:width
             fillMode: Image.PreserveAspectFit
             anchors.horizontalCenter: parent.horizontalCenter;
-            source: Qt.resolvedUrl("../graphics/mad-squid.png")
+            source: Qt.resolvedUrl("../graphics/cthulhu.png")
+            MouseArea{
+                anchors.fill: parent
+                onClicked: {
+                    add.roll();
+                    jumbo.visible = true;
+                }
+            }
         }
 
         Label{

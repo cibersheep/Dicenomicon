@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=Dicenomicon
-Exec=./qtc_device_debughelper.py app "qmlscene $@ Main.qml"
+Exec=qmlscene $@ Main.qml
 Icon=dicenomicon.png
 Terminal=false
 Type=Application
