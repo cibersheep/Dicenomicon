@@ -4,7 +4,7 @@ import Lomiri.Components 1.3
 //this is for dice total number...The big number in the center
 
 Item{
-    height: units.gu(18)
+    height: units.gu(30)
     width: parent.width
     
     Item {
