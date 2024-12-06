@@ -7,28 +7,28 @@ function roll(sides) {
 function diceName(unit) {
 	switch(unit) {
 	  case 2:
-		return "Coin"
+		return i18n.tr("Coin")
 		break;
 	  case 4:
-		return "Tetrahedron"
+		return i18n.tr("Tetrahedron")
 		break;
 	  case 6:
-		return "Cube"
+		return i18n.tr("Cube")
 		break;
 	  case 8:
-		return "Octahedron"
+		return i18n.tr("Octahedron")
 		break;
 	  case 10:
-		return "Deltahedron"
+		return i18n.tr("Deltahedron")
 		break;
 	  case 12:
-		return "Dodecahedron"
+		return i18n.tr("Dodecahedron")
 		break;
 	  case 20:
-		return "Icosahedron"
+		return i18n.tr("Icosahedron")
 		break;
 	  default:
-		return "Hectogon"
+		return i18n.tr("Hectogon")
 	}
 }
 

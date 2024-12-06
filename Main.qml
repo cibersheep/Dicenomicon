@@ -56,27 +56,26 @@ MainView {
                     Action {
                         id: save
                         iconName: "add"
-                        onTriggered:{ PopupUtils.open(dialog) }
+                        onTriggered: PopupUtils.open(dialog)
                     }
                 ]
             }
         }
 
         AddComponent {
-            id:dialog
+            id: dialog
         }
 
         Flow {
             objectName: "layouts"
             id: layouts
+            
             anchors {
                 bottom: parent.bottom
                 top: header.bottom
                 left: parent.left
                 right: parent.right
             }
-
-
 
             Item {
                 id: redButton
