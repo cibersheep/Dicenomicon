@@ -9,12 +9,13 @@ import Lomiri.Layouts 1.0
 
 MainView {
     objectName: "mainView"
-
     applicationName: "dicenomicon.kevinfeyder"
 
     theme.name: "Ubuntu.Components.Themes.SuruDark"
     width: units.gu(45)
     height: units.gu(75)
+
+    property bool portraitMode: width < height
 
     //--- database ---//
     U1db.Database {
@@ -39,6 +40,90 @@ MainView {
         onDetected: {
             add.roll();
             jumbo.visible = true;
+        }
+    }
+
+    Page {
+        id: home
+        anchors.fill: parent
+
+        header: PageHeader {
+            id: header
+            title: i18n.tr("Dicenomicon")
+
+            trailingActionBar {
+                actions:[
+                    Action {
+                        id: save
+                        iconName: "add"
+                        onTriggered:{ PopupUtils.open(dialog) }
+                    }
+                ]
+            }
+        }
+
+        AddComponent {
+            id:dialog
+        }
+
+        Flow {
+            objectName: "layouts"
+            id: layouts
+            anchors {
+                bottom: parent.bottom
+                top: header.bottom
+                left: parent.left
+                right: parent.right
+            }
+
+
+
+            Item {
+                id: redButton
+                objectName: "water"
+                opacity: 0
+
+                width: portraitMode ? parent.width : parent.width * 0.4
+                height: portraitMode ? units.gu(30) : parent.height
+
+
+                //start up animation
+                Component.onCompleted: {
+                    opacity = 1 //begins start animation
+                }
+
+                Behavior on opacity { NumberAnimation { easing.type:Easing.InOutBounce; duration: 2000} }
+
+                SetComponent {
+                    id: jumbo
+                    //big number in the center
+                    Behavior on opacity { NumberAnimation { easing.type: Easing.OutBack; duration: 1000} }
+                    visible: add.total !== 0
+                    opacity: visible
+                    width: parent.width / 2
+                    anchors.horizontalCenter: parent.horizontalCenter
+                }
+
+                EmptyComponent {
+                    //cute cthulhu
+                    width: parent.width / 2
+                    Behavior on opacity { NumberAnimation { easing.type: Easing.OutBack; duration: 1000} }
+                    visible: !jumbo.visible
+                    opacity: visible
+                    anchors {
+                        top: parent.top
+                        topMargin: units.gu(2)
+                    }
+                }
+            }
+
+            SettingsComponent {
+                id: greenButton
+                objectName: "history"
+
+                width: portraitMode ? parent.width : parent.width - redButton.width
+                height: portraitMode ? parent.height - redButton.height : parent.height
+            }
         }
     }
 
@@ -102,167 +187,5 @@ MainView {
             dice.contents = tempContents;
         }
     }
-
-    Page {
-        id:home
-
-        header: PageHeader {
-            id: header
-            title: i18n.tr("Dicenomicon")
-
-            trailingActionBar {
-                actions:[
-                    Action {
-                        id: save
-                        iconName: "add"
-                        onTriggered:{ PopupUtils.open(dialog) }
-                    }
-                ]
-            }
-        }
-
-        AddComponent {
-            id:dialog
-        }
-
-        Layouts {
-            objectName: "layouts"
-            id: layouts
-            anchors.fill: parent
-            layouts: [
-                ConditionalLayout {
-                    //phone layout
-                    name: "phone"
-                    when: layouts.width < units.gu(50)
-                    Row {
-                        anchors.fill: parent
-                        ItemLayout {
-                            item: "water"
-                            width: parent.width
-                            anchors {
-                                top: parent.top
-                                bottom: parent.bottom
-                                topMargin: header.height
-                            }
-                        }
-
-                        ItemLayout {
-                            item: "history"
-                            width: 0
-                            anchors {
-                                top: parent.top
-                                bottom: parent.bottom
-                            }
-                        }
-                    }
-                },
-                ConditionalLayout {
-                    //end of tablet layout
-                    name: "tablet"
-                    when: layouts.width > units.gu(60)
-                    Row {
-                        anchors.fill: parent
-                        ItemLayout {
-                            item: "water"
-                            width: parent.width / 2
-                            anchors {
-                                top: parent.top
-                                bottom: parent.bottom
-                                topMargin: header.height
-                            }
-                        }
-                        ItemLayout {
-                            item: "history"
-                            width: parent.width / 2
-                            anchors {
-                                top: parent.top
-                                bottom: parent.bottom
-                            }
-                        }
-                    }
-                }
-            ]//end of layouts
-
-            Item {
-                id: redButton
-                width: parent.width
-                Layouts.item: "water"
-                anchors {
-                    left: parent.left
-                    top: parent.top
-                    bottom: parent.bottom
-                }
-                Column {
-                    id: col
-                    spacing: units.gu(5);
-                    width: parent.width
-                    height: parent.height
-                    opacity: 0
-
-                    //start up animation
-                    Component.onCompleted: {
-                        col.opacity = 1;//begins start animation
-                    }
-
-                    Behavior on opacity{ NumberAnimation { easing.type:Easing.InOutBounce; duration: 2000} }
-                    anchors {
-                        margins: units.gu(2)
-                        fill: parent
-                    }
-
-                    SetComponent {
-                        id:jumbo
-                        //big number in the center
-                        Behavior on opacity { NumberAnimation { easing.type: Easing.OutBack; duration: 1000} }
-                        visible: add.total !=0 ? true : false;
-                        opacity: visible
-                        height:units.gu(30)
-                    }
-
-                    EmptyComponent{
-                        //cute cthulhu
-                        height:units.gu(30)
-                        Behavior on opacity { NumberAnimation { easing.type: Easing.OutBack; duration: 1000} }
-                        visible: add.total === 0
-                        opacity: visible
-                    }
-
-                    SettingsComponent {
-                        width:parent.width
-                        height: parent.height / 2
-                        visible: greenButton.width < 1
-                    }
-                }
-            }
-
-            Item {
-                id: greenButton
-                Layouts.item: "history"
-
-                anchors {
-                    top: parent.top
-                    left: redButton.right
-                    right: parent.right
-                }
-
-                Column {
-                    id: col2
-                    spacing: units.gu(5);
-
-                    anchors {
-                        fill:parent;
-                        margins: units.gu(5)
-                    }
-
-                    opacity: greenButton.width > 0 ? 1 : 0
-
-                    SettingsComponent {
-                        width: parent.width
-                        height: parent.height + units.gu(5)
-                    }
-                }
-            }//end of greenButton
-        }
-    }//page
 }
 
